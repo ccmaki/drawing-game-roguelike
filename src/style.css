@@ -1,7 +1,8 @@
-:root{--paper:#f3ead8;--ink:#1d1a16;--duo:#c2307a;--bg:#26211c;--cream:#f3ead8}
+/* Single dark look by choice (a desk lamp over a sheet of paper): no light theme. */
+:root{--paper:#f3ead8;--ink:#1d1a16;--duo:#c2307a;--bg:#26211c;--cream:#f3ead8;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--cream);font-family:Georgia,'Iowan Old Style','Palatino Linotype',serif}
-#wrap{max-width:1120px;margin:0 auto;padding:10px 12px 24px}
+#wrap{max-width:1120px;margin:0 auto;padding-block:10px 24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 #top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:2px 2px 8px}
 #top h1{font-size:20px;margin:0;letter-spacing:.5px}
 #top h1 span{font-size:13px;opacity:.6;font-style:italic;margin-left:6px}

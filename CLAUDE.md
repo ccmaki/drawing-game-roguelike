@@ -26,7 +26,7 @@ so keep game logic engine-free.
 npm install
 npm test            # vitest: recognition, combat, map/run, content integrity
 npm run typecheck
-npm run build       # → dist/index.html, ONE self-contained file (no external assets)
+npm run build       # → dist/index.html (one self-contained file) + dist/artifact.html (same, for publishing)
 npm run dev         # local dev server (the user can't run this; it's for you)
 ```
 
@@ -34,8 +34,9 @@ Always run `npm test` and `npm run build` before committing.
 
 ## How the user plays it
 
-The user can't run the game locally. After a build, publish `dist/index.html` as a claude.ai
-**artifact** and update the same artifact each version so the link stays stable. There is no
+The user can't run the game locally. After a build, publish `dist/artifact.html` (the build minus the
+doctype/html/head/body wrapper, which the artifact host adds) as a claude.ai **artifact** and update the same artifact each version so the link stays stable:
+https://claude.ai/artifact/EAvzzMRhys7sYheE6kfWLg (from another session, publish with this `url`). There is no
 GitHub Pages deploy (decision #15).
 
 You can drive the built page yourself with Playwright (pre-installed) to check that things work in
