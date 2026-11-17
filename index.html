@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sigilfall prototype</title>
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<div id="wrap">
+  <div id="top">
+    <h1>Sigilfall <span>prototype v1 · draw your spells</span></h1>
+    <div id="status"></div>
+  </div>
+  <div id="stage">
+    <canvas id="cv"></canvas>
+    <div class="modal" id="mapModal">
+      <h2>Choose your path</h2>
+      <p class="legend">⚔ Fight · ☠ Elite · ✒ Calligrapher (Hammer) · ♨ Rest · ◉ Boss</p>
+      <div id="mapBox"></div>
+    </div>
+    <div class="modal" id="pick">
+      <h2 id="pickTitle"></h2>
+      <p id="pickSub"></p>
+      <div id="cards"></div>
+      <button class="big" id="pickBtn"></button>
+    </div>
+  </div>
+  <div id="bar">
+    <div id="inkbox"><b>INK</b><span id="pips"></span></div>
+    <div id="chips"></div>
+    <button id="riteBtn" title="Shortcut: R">Rite: Inkstorm</button>
+    <button id="endBtn" title="Shortcut: Space or E">End turn</button>
+  </div>
+  <div id="panels">
+    <div class="panel">
+      <h3>HOW TO CAST</h3>
+      <div id="help"></div>
+    </div>
+    <div class="panel">
+      <h3>YOUR BUILD</h3>
+      <div id="build"></div>
+      <h3 style="margin-top:10px">DUO BOONS</h3>
+      <div id="duos"></div>
+    </div>
+  </div>
+  <details id="debug">
+    <summary>Playtest tools</summary>
+    <div id="debugBody"></div>
+  </details>
+</div>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

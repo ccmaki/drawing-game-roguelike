@@ -24,9 +24,25 @@ Combat is shaped like Slay the Spire, and the build system is shaped like Hades.
 | 9 | Duo boons | Need at least one boon from each of the two patrons, and then you still have to pick the duo boon when it's offered | Prerequisites make duos feel earned |
 | 10 | Combos | **Spatial combos** are built in and free (crossing strokes, a line leaving your Ward, a line passing through your Sigil). **Status reactions** come from duo boons. **No order-based combos** | Order combos turn into a memorized rotation when glyphs are always available |
 | 11 | Combo cost | Spatial combos cost no extra ink and have no cooldown | You already paid for the strokes, and geometry is the limit |
-| 12 | Rare glyphs | New glyph shapes (Zigzag, Spiral…) are rare picks with cooldowns | They stay special without crowding your turn |
+| 12 | Rare glyphs | New glyph shapes (Zigzag, Spiral…) are rare picks with cooldowns. *Zigzag part superseded by #17* | They stay special without crowding your turn |
 | 13 | Enemies | Need formations and behaviors that push back against each shape (spread out, bunched up, shielded, moving) | Otherwise one shape is always best, and that's linear again |
 | 14 | Run structure | Branching map with **Fight**, **Elite**, **Calligrapher** (Hammer shop/pick), **Rest** and **Boss** rooms. A Hammer is guaranteed to be available in the first few rooms | Room choice adds replay value and lets you steer your build |
+| 15 | Stack / process | Prototype only. TypeScript + Vite + Canvas 2D, no engine. The build is **one self-contained HTML file**, played through a private claude.ai artifact (no GitHub Pages). Game logic is kept free of DOM/canvas so it can move to an engine later | The goal now is finding the fun, not building an app. An engine choice can wait until the game is worth building |
+| 16 | Hammers | A shape Hammer **replaces** its slot's default shape. With Zigzag, a straight line no longer casts Strike. With Wall, a circle around yourself no longer casts Ward | Forces a different battlefield. Recognition only has to tell apart the shapes you own, so it gets more forgiving (pillar 3) |
+| 17 | Glyphs | Zigzag is a Strike Hammer only. The rare Zigzag glyph is removed. Spiral stays as the one rare glyph | Two versions of the same shape would blur what Hammers do |
+| 18 | Shapes | "Loop / Curve" becomes **Curve**: any open stroke. 3 dmg to enemies touched, plus an ink trail lasting 2 enemy turns. Enemies **moving through** it take 5, enemies **standing in** it at the end of their action take 2 (once per enemy per enemy turn) | A closed loop can't be told apart from the Ward/Sigil circle. The trail only pays off against movement, which is the zoning role |
+| 19 | Shapes | **Stab** hits only the first enemy the stroke touches. Damage falls with stroke length: 14 at ≤80px down to 6 at ≥250px | Rewards precision and focusing one target |
+| 20 | Shapes | **Wall** (Ward Hammer): an open stroke that touches no enemy and crosses an attacker's straight path to you. It fully blocks that attacker for this enemy turn. If it crosses several paths, it blocks the hardest hitter. Ward boons' flat Block bonuses still apply as Block. Replaces the Ward circle | Strong against one big attacker, weak against many or flanking ones |
+| 21 | Shapes | Walls must be drawn on **your side** of the field (left of x=400, shown as a dashed line). *(provisional, needs review)* | Found in browser testing: with Curve + Wall, a zoning trail in front of enemies (touching none) became a Wall. That's exactly how Curve is meant to be used |
+| 22 | Ink | Shape-changed Strikes cost 1 ink with no cooldown. The +1 repeat rule counts per glyph (Strike, Ward, Sigil, Spiral), not per shape | A Hammer changes how your Strike works, not how often you can use it |
+| 23 | Combos | Every Strike shape can cross other Strikes and get infused by the Sigil. "Starting inside your Ward" also counts starting within 30px of a Wall. Live Curve trails count as crossable lines | Keeps spatial combos working whatever your shapes |
+| 24 | Hammers | Shape details *(provisional, needs review)*: Zigzag body 4, each corner jumps 6 to the nearest enemy within 150px of that corner that this Zigzag hasn't hit. Max 3 jumps, and corners that find nobody don't use one up. Each enemy is hit once per Zigzag | "Each corner jumps to a target" only wants spread enemies if corners have a reach and enemies can't be hit twice |
+| 25 | Hammers | Tweak Hammers (stack, never change shape): **Heavy Nib** (+3 per Strike hit, second Strike costs +2 extra instead of +1), **Wide Nib** (+14px hit reach), **Echo** (first Strike each turn re-hits every enemy it damaged at half damage, no on-hit effects), **Wet Ink** (if nothing hit your Block during the enemy turn, half of it carries over), **Long Reach** (needs Wall: blocks a second attacker whose path passes within 40px). A new shape Hammer replaces the old one in that slot, and tweaks that required the old shape are lost | Small, readable changes that combine with shapes rather than add raw stats |
+| 26 | Patron boons | Rewritten against "Strike hit", "Ward", "block absorbed" and similar hooks, never a shape. **Arc Stroke** becomes +1 dmg per different enemy your Strikes have hit this turn, this one included, plus 1 Shock. **Glacial Ward** becomes "Strikes that start from your Ward apply 2 Chill". **Shatter** applies to Strikes | Decision 6: patrons must work on any shape |
+| 27 | Patron/shape bonus | **Storm + Zigzag**: +1 jump. **Ember + Curve**: the trail lasts +1 turn and applies 2 Burn when it hurts. **Frost + Wall**: blocked attackers gain 2 Chill. **Storm + Stab**: a Stab consumes all Shock on its target, +6 per stack. Active when the slot's patron boon and shape match. Line and Circle get none | Decision 8, one fitting pair per new shape |
+| 28 | Enemies | Enemies use free positions and **move** (no fixed rows). New enemies: **Mite** (tiny, bunched: punishes Stab), **Skitter** (scatters away from allies: punishes Line), **Charger** (runs at you: rewards Curve), **Flanker** (moves above or below you: punishes Wall), **Shieldbearer** (deflects Strikes coming from the 120° arc facing you, so you hit it from above, below or behind. Crossings, statuses, Sigil and Rite are not deflected), **Hulk** (one huge target: rewards Stab and Wall) | Decision 13. Playtesting showed enemies "stand still and let you line them up" |
+| 29 | Run structure | One act: 8 rows plus the boss, 2–4 rooms per row, no crossing paths. Row 1 is all Fights. **Every path meets a Calligrapher in room 2 or 3.** Elites appear from room 4. The last row before the boss is all Rest | Decision 14 with concrete numbers. The guaranteed Calligrapher gets a Hammer into every run early |
+| 30 | Rewards | Fight: pick 1 of 3 boons. Elite: a boon, then a Hammer pick. Calligrapher: pick 1 of 3 Hammers (at most 2 shape Hammers per offer, skip allowed), no currency. Rest: heal 30% of max HP. The automatic +10 heal between fights is removed | Healing becomes a route choice. There's no currency yet, so no shop |
 
 ## Shape design rule
 
@@ -40,7 +56,28 @@ Example Strike Hammers:
 Example Ward Hammer:
 - **Wall**: draw a barrier between you and one attacker in place of a circle around yourself.
 
-## Current prototype (v0), `prototype/index.html`
+Current shapes (v1):
+
+| Slot | Shape | Wants | Pushed back by |
+|------|-------|-------|----------------|
+| Strike | Line (default) | Enemies lined up | Skitters (spread out), Shieldbearer (head-on lines bounce off), Quillshots (reposition) |
+| Strike | Zigzag | Enemies spread out, one corner near each | Bunched groups: a Line does more total |
+| Strike | Curve | Enemies that move: cut off their path | Enemies that stand still take only 2 per turn |
+| Strike | Stab | One target worth focusing | Mite swarms, summons |
+| Ward | Circle (default) | Steady damage from several enemies | Big single hits |
+| Ward | Wall | One big attacker | Flankers, several attackers at once |
+
+## Current prototype (v1), `src/`
+
+TypeScript modules built into one HTML file (see CLAUDE.md). Everything from v0 below is kept unless a later decision changed it, plus:
+- **Hammers** (#16–#25): Zigzag, Curve and Stab Strikes, the Wall Ward, five tweak Hammers.
+- **Shape-agnostic patron boons** and **patron/shape bonuses** (#26–#27).
+- **Moving enemies and formations** that push back against each shape (#28). Each encounter's data has a `pushback` note.
+- **Branching map** with Fight, Elite, Calligrapher, Rest and Boss rooms (#29–#30).
+- **Playtest tools** under the game: set the seed, grant any boon or Hammer, start any encounter, heal, add ink, kill all, show recognition stats while drawing.
+- Recognition change: corner detection samples at least 8px apart, so hand jitter on short strokes isn't read as corners (a short shaky line used to read as a zigzag, which would have broken Stab).
+
+## v0 prototype, `prototype/index.html`
 
 One HTML file using canvas, with no build step. Contents:
 - **Glyphs:** Line = Strike (6 dmg to every enemy it passes through). Circle around yourself = Ward (6 block). Circle around enemies = Sigil (needs a boon). Zigzag and Spiral are rare unlocks with cooldowns. Rite is a button: Inkstorm, 7 damage to all enemies, costs 2 ink, cooldown 3.
@@ -58,14 +95,17 @@ One HTML file using canvas, with no build step. Contents:
 - The enemies basically stand still and let you line them up.
 
 ## Next steps
-1. Hammers (shape-changing Strike and Ward Hammers, plus a few small tweak Hammers) and the Calligrapher room.
-2. Branching map with the room types from decision 14.
-3. Rewrite patron boons to be shape-agnostic, and add the patron/shape bonuses.
-4. Enemy formations and behaviors that push back against each shape.
-5. Rebalance after playtesting.
+1. ~~Hammers and the Calligrapher room~~ (v1)
+2. ~~Branching map~~ (v1)
+3. ~~Shape-agnostic patron boons and patron/shape bonuses~~ (v1)
+4. ~~Enemy formations and behaviors that push back against each shape~~ (v1)
+5. **Playtest v1.** Main questions: does each shape actually feel like it wants a different battlefield? Is Line + Ward still the answer to everything? Are the Wall's "your side" rule and the Curve trail readable?
+6. Rebalance after playtesting. All provisional numbers are in `src/content/tuning.ts` and the content files.
 
 ## Open questions
 - What exactly does the Rite do, and should it be drawn rather than pressed as a button?
 - Does Sigil also get shape Hammers, or only Strike and Ward?
 - Meta-progression between runs (a Hades-style mirror or unlocks)?
-- Engine/stack for the real version (start: TypeScript + Vite + Canvas 2D).
+- Engine for the real version. The prototype stays engine-free for now (#15). Decide once the game feels worth building. Retest how drawing *feels* (input sampling, touch latency) on the target engine and device.
+- Should Sigil and Rite get shape Hammers too?
+- Should the Calligrapher become a shop once there's a currency?
